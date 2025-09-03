@@ -15,10 +15,15 @@ def quad_math(a, b, c):
         print("Please input a valid number") 
 
 if __name__ == "__main__":
+
+    try:
    
-   input("Put you quadractic values a, b and c ")
-   a = input("Enter a : ")
-   b = input("Enter b : ")
-   c = input("Enter c : ")
+       input("Put you quadractic values a, b and c ")
+       a = input("Enter a : ")
+       b = input("Enter b : ")
+       c = input("Enter c : ")
    
-   quad_math(float(a), float(b), float(c))
+       quad_math(float(a), float(b), float(c))
+
+    except ValueError:
+        print("Please input a valid number")
