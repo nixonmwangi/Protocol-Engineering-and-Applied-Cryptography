@@ -17,6 +17,7 @@ def math_table():
                 print("Enter a valid number")
             else:
                 # Print multiplication table up to m
+
                 for i in range(1, m + 1):
                     result = x * i
                     print(f"{x} x {i} = {round(result, 2)}")
@@ -31,5 +32,6 @@ def math_table():
 if __name__ == "__main__":
     # Run the multiplication table function if script is executed directly
     math_table()
+
 
 

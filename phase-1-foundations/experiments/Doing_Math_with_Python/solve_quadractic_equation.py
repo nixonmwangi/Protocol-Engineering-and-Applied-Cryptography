@@ -8,8 +8,8 @@ def quad_math(a, b, c):
         e = (-b - d)/(2*a)
         f = (-b + d)/(2*a)
 
-        print(f"Answer x1 = {e}")
-        print(f"Answer x2 = {f}")
+        print(f"Answer x1 = {e:.2f}")
+        print(f"Answer x2 = {f:.2f}")
 
     except ValueError:
         print("Please input a valid number") 
