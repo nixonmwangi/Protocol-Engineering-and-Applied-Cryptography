@@ -11,7 +11,7 @@ def math_table():
             # Ask user for the base number (can be float)
             x = float(input("Please enter a number to get multiplication table : "))
             # Ask user for the number of multiples (must be integer)
-            m = int(input("which multiple : "))
+            m = int(input("To which multiple : "))
             # Validate inputs
             if x == 0.0 or m == 0:
                 print("Enter a valid number")
