@@ -1,3 +1,5 @@
+import matplotlib.pyplot as  plt 
+
 def daily():
     categories = [
        "Food", 
@@ -9,17 +11,29 @@ def daily():
     ]
     daily_cost = []
     print("---------------------------------------------------")
+    
     for cat in categories:
-        try:
-            amount = float(input(f"{cat} cost: "))
-            daily_cost.append(amount)
-            print("--------------------")
-        except ValueError:
-            print("Invalid input, please enter a number.")       
+        while True:
+            try:
+               amount = float(input(f"{cat} cost: "))
+               daily_cost.append(amount)
+               print("--------------------")
+               break
+            except ValueError:
+               print("Invalid input, please enter a number.") 
     print("***Total Daily Cost***")
     print("---------------------") 
     print(f"Total expenditure : {sum(daily_cost)}")
-    print("--------------------")    
+    print("--------------------")
+
+    plt.bar(categories, daily_cost)
+    plt.title("Daily Expenditure")
+    plt.xlabel("Categories")
+    plt.ylabel("Cost")
+    plt.xticks(rotation=30)
+    plt.tight_layout()
+    plt.show()
+    
         
 def weekly():
     categories = [
@@ -35,16 +49,26 @@ def weekly():
     weekly_cost = []
     print("---------------------------------------------------")
     for cat in categories:
-        try:
-            amount = float(input(f"{cat} cost: "))
-            weekly_cost.append(amount)
-            print("--------------------")
-        except ValueError:
-            print("Invalid input, please enter a number.")       
+        while True:
+            try:
+               amount = float(input(f"{cat} cost: "))
+               weekly_cost.append(amount)
+               print("--------------------")
+               break
+            except ValueError:
+               print("Invalid input, please enter a number.")
     print("***Total Weekly Cost***")
     print("---------------------") 
     print(f"Total expenditure : {sum(weekly_cost)}")
-    print("--------------------")   
+    print("--------------------")
+
+    plt.bar(categories, weekly_cost)
+    plt.title("Weekly Expenditure")
+    plt.xlabel("Categories")
+    plt.ylabel("Cost")
+    plt.xticks(rotation=30)
+    plt.tight_layout()
+    plt.show()
     
 def monthly():
     categories = [
@@ -69,16 +93,26 @@ def monthly():
     monthly_cost = []
     print("---------------------------------------------------")
     for cat in categories:
-        try:
-            amount = float(input(f"{cat} cost : "))
-            monthly_cost.append(amount)
-            print("--------------------")
-        except ValueError:
-            print("Invalid input, please enter a number.")       
+        while True:
+            try:
+               amount = float(input(f"{cat} cost: "))
+               monthly_cost.append(amount)
+               print("--------------------")
+               break
+            except ValueError:
+               print("Invalid input, please enter a number.")       
     print("***Total Monthly Cost***")
     print("---------------------") 
     print(f"Total expenditure : {sum(monthly_cost)}")
     print("--------------------")
+
+    plt.bar(categories, monthly_cost)
+    plt.title("Monthly Expenditure")
+    plt.xlabel("Categories")
+    plt.ylabel("Cost")
+    plt.xticks(rotation=60)
+    plt.tight_layout()
+    plt.show()
 
 def expenditure():
          print("---------------------------------------------------")
@@ -91,7 +125,7 @@ def expenditure():
          
 
          while True:
-            choice = input("Daily (1) | Weekly (2) | Monthly (3) | Exit (q) : ")
+            choice = input("Daily (1) | Weekly (2) | Monthly (3) | Exit (q/any) : ")
 
             try:
                 if choice == "1":
@@ -101,11 +135,11 @@ def expenditure():
                 elif choice == "3":
                    monthly()
                 else:
-                   print("Exiting program ...")
+                   print("Exiting program ... Goodbye")
                    break
             except ValueError:
-                   print("Exiting program ...")
-
+                   print("Exiting program ... Goodbye")
+ 
 if __name__ == "__main__":
      expenditure()
                  
