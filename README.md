@@ -5,7 +5,7 @@ It’s structured in phases, each containing notebooks, experiments, projects, a
 
 
 ```
-|   The structure:
+| **The structure**
 |
 |__ environments/                  # Conda & pip environment setup and others
 |
