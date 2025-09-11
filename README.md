@@ -3,21 +3,25 @@ Welcome to my project-phased roadmap repository. This repo documents my journey 
 
 It’s structured in phases, each containing notebooks, experiments, projects, and blogs, reflecting hands-on learning and applied research.
 
+
+```
 The structure:
-|__ environments/                 # Conda & pip environment setup and others
-├── phase-1-foundations/          # Math + Python foundations
-│   ├── notebooks/                # Jupyter notebooks for practice & theory
-│   ├── experiments/              # Test runs, prototypes, code snippets
-│   ├── projects/                 # Applied projects per phase
-│   └── blogs/                    # Documentation, reflections, mini-guides
-│
+|__ environments/                  # Conda & pip environment setup and others
+|
+├── phase-1-foundations/           # Math + Python foundations
+│   ├── notebooks/                 # Jupyter notebooks for practice & theory
+│   ├── experiments/               # Test runs, prototypes, code snippets
+│   ├── projects/                  # Applied projects per phase
+│   └── blogs/                     # Documentation, reflections, mini-guides
+|
 ├── phase-2-crypto-protocol/       # Cryptography & protocol basics
-│
+|
 ├── phase-3-protocol-engineering/  # Advanced blockchain & protocols
-│
+|
 ├── phase-4-projects/              # Portfolio-ready projects
-│
+|
 └── phase-5-research/              # Research & continuous learning
+```
 
 # Roadmap Goals : 
 
