@@ -101,9 +101,9 @@ if __name__ == "__main__":
                 print("Not a valid number, try again")
 
     # After loop ends → calculate stats
-    print("-----------")
+    print("--------------")
     mean(values)
-    print("-----------")
+    print("--------------")
     median(values)
     print("-------------------")
     frequency(values)
