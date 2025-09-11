@@ -5,7 +5,7 @@ It’s structured in phases, each containing notebooks, experiments, projects, a
 
 
 ```
-|   The structure :
+|   The structure:
 |
 |__ environments/                  # Conda & pip environment setup and others
 |
@@ -35,6 +35,8 @@ It’s structured in phases, each containing notebooks, experiments, projects, a
 4. Develop portfolio-grade projects to showcase applied skills.
 
 5. Maintain a public learning log through blogs and GitHub commits.
+   
+6. Contribute to open-source projects in cryptography or protocol engineering to gain real-world collaboration  experience. 
 
 “Well we make plans ✝️ and God laughs 😂 | Wish me luck ദ്ദി | ≈ 24 Months of tillage ⌚”
  
