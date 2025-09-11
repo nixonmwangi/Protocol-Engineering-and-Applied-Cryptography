@@ -5,7 +5,8 @@ It’s structured in phases, each containing notebooks, experiments, projects, a
 
 
 ```
-The structure:
+|The structure:
+|
 |__ environments/                  # Conda & pip environment setup and others
 |
 ├── phase-1-foundations/           # Math + Python foundations
