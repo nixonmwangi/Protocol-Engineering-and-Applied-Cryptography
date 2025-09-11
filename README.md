@@ -21,7 +21,7 @@ The structure:
 
 # Roadmap Goals : 
 
-1. Build strong mathematics + programming foundations.
+1. Build strong mathematics + programming foundations + minimal artificial intelligence to build logic.
 
 2. Implement and analyze classical & modern cryptographic algorithms.
 
