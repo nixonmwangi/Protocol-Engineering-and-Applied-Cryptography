@@ -1,5 +1,8 @@
 #calculate the Range, Variance and Standard Deviation
 def range(values):
+    if not values:
+        return None
+        
     lowest = min(values)
     highest = max(values)
 
@@ -8,6 +11,8 @@ def range(values):
     return delta, highest, lowest
 
 def variation(values):
+    if not values:
+        return None
     #Mean
 
     l = len(values)
