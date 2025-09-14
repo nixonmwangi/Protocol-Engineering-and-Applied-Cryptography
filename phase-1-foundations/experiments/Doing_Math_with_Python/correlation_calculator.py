@@ -1,3 +1,7 @@
+# Finding the correlation coefficient
+
+import matplotlib.pyplot as plt
+
 def correlation(set_1, set_2):
     # Mean
     # set 1 
@@ -25,12 +29,15 @@ def correlation(set_1, set_2):
     denominator = (sum(d ** 2 for d in v1) * sum(d ** 2 for d in v2)) ** 0.5
 
     return numerator/denominator
+
+def graph(set_1, set_2):
+    plt.scatter(set_1, set_2)
+    plt.xlabel("x (First set)")
+    plt.ylabel("y (Second set)")
+    plt.title("Correlation Coefficient graph between x and y ")
+    plt.show()
     
 
-    
-    
-   
-    
 
 if __name__ == "__main__":
     print("*--------------------------------------*")
@@ -100,11 +107,6 @@ if __name__ == "__main__":
         
         print(f"The coefficient correlation : {c:.2f}")
         print("------------------------------------")
-
-        
-       
-
-            
-            
-
-    
+        print("(Close to –1 = strong negative, 0 = weak, +1 = strong positive)")
+        print("---------------------------------------------------------------")
+        graph(set_1, set_2)
