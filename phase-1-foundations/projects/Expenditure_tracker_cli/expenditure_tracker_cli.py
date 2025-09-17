@@ -19,25 +19,26 @@ DATA_FILE = "expenditure.json"
 class Expenditure(cmd.Cmd):
     # CLI intro and prompt
     intro = Fore.CYAN + (
-        " ----------------------------------- \n"
-        "|     Expenditure Tracker Cli       |\n"
-        " ----------------------------------- \n"
-        "| Daily | Weekly | Monthly | Yearly |\n"
-        " ----------------------------------- \n"
-        "|   Plots graph and saves expenses  |\n"
-        " ----------------------------------- \n"
-        "                                  \n"
-        "            commands              \n"
-        "           **********             \n"
-        "-> use 'add' to record an expense             \n"
-        "-> use 'edit' to update an expense details    \n"
-        "-> use 'list' to see all expenses             \n"
-        "-> use 'plot' to plot expense graph           \n"
-        "-> use 'summary' to view all expense totals   \n"
-        "-> use 'help' to show all commands            \n"
-        "-> use 'delete' to delete expense by Id='1'   \n"
-        "-> use 'exit' to exit program                 \n"
-        "--------------------------------------------  \n"
+        "\n"
+        + " " * 25 + "-------------------------------------------------------------\n"
+        + " " * 25 + "|                   Expenditure Tracker CLI                  |\n"
+        + " " * 25 + "-------------------------------------------------------------\n"
+        + " " * 25 + "|        Daily | Weekly | Monthly | Yearly | All-Time        |\n"
+        + " " * 25 + "-------------------------------------------------------------\n"
+        + " " * 25 + "|           Plots graphs and saves expenses                  |\n"
+        + " " * 25 + "-------------------------------------------------------------\n"
+        + "\n"
+        + " " * 32 + "********** Commands **********\n"
+        + " " * 35 + "-> add      : Record an expense\n"
+        + " " * 35 + "-> edit     : Update expense details\n"
+        + " " * 35 + "-> list     : See all expenses\n"
+        + " " * 35 + "-> plot     : Plot expense graph\n"
+        + " " * 35 + "-> summary  : View expense totals\n"
+        + " " * 35 + "-> help     : Show all commands\n"
+        + " " * 35 + "-> delete   : Delete expense by Id\n"
+        + " " * 35 + "-> exit     : Exit program\n"
+        + " " * 25 + "-------------------------------------------------------------\n"
+        + "\n"
     )
     prompt = Fore.RED + "exp -> " + Style.RESET_ALL
 
@@ -428,6 +429,8 @@ class Expenditure(cmd.Cmd):
             "plot": "Plot expenses per category. Example: plot --week 37",
             "edit": "Edit an expense by index. Example: edit 2 --amount 200",
             "delete": "Delete an expense by index. Example: delete 3",
+            "load": "Load expenses from a file. Example: load expenditure.json",
+            "export": "Export expenses to a file. Example: export --format csv --filename my_report",
             "exit": "Exit the shell. Example: exit",
             "help": "Show this help menu. Example: help",
         }
