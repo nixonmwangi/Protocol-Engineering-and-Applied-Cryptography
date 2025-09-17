@@ -17,6 +17,7 @@ import pandas as pd  # For XLSX support
 DATA_FILE = "expenditure.json"
 
 class Expenditure(cmd.Cmd):
+    # CLI intro and prompt
     intro = Fore.CYAN + (
         " ----------------------------------- \n"
         "|     Expenditure Tracker Cli       |\n"
@@ -46,6 +47,7 @@ class Expenditure(cmd.Cmd):
         self.expenses = self.load_expenses(self.file_path)
 
     def load_expenses(self, file_path=None):
+        # Load expenses from JSON, CSV, or XLSX file
         file_path = file_path or self.file_path
         ext = os.path.splitext(file_path)[1].lower()
         if not os.path.exists(file_path):
@@ -80,10 +82,12 @@ class Expenditure(cmd.Cmd):
             return []
 
     def save_expenses(self):
+        # Save expenses to JSON file
         with open(self.file_path, "w") as f:
             json.dump(self.expenses, f, indent=4)
 
     def do_load(self, line):
+        # Load expenses from a specified file
         parser = argparse.ArgumentParser(
             prog="load",
             description="Load expenses from a file (json, csv, xlsx). Usage: load <filename>"
@@ -100,6 +104,7 @@ class Expenditure(cmd.Cmd):
             pass
     
     def do_add(self, line):
+        # Add a new expense
         parser = argparse.ArgumentParser(prog="add")
         parser.add_argument("--amount", type=float, required=True)
         parser.add_argument("--category", required=True)
@@ -117,6 +122,7 @@ class Expenditure(cmd.Cmd):
             pass
 
     def do_list(self, line):
+        # List expenses with optional filters
         parser = argparse.ArgumentParser(prog="list")
         parser.add_argument("--day")
         parser.add_argument("--week", type=int)
@@ -130,6 +136,7 @@ class Expenditure(cmd.Cmd):
             pass
 
     def list_expense(self, day=None, week=None, month=None, year=None, category=None):
+        # Helper to filter and print expenses
         records = []
         for e in self.expenses:
             try:
@@ -162,6 +169,7 @@ class Expenditure(cmd.Cmd):
         print("----------------------------------------------------")
 
     def do_summary(self, line):
+        # Show summary of expenses
         parser = argparse.ArgumentParser(prog="summary")
         parser.add_argument("--year", type=int)
         parser.add_argument("--month", type=int)
@@ -175,6 +183,7 @@ class Expenditure(cmd.Cmd):
             pass
 
     def summary(self, day=None, year=None, month=None, week=None, category=None):
+        # Helper to print summary by filters
         records = []
         for e in self.expenses:
             try:
@@ -211,6 +220,7 @@ class Expenditure(cmd.Cmd):
             print("---------------------------------")
 
     def do_edit(self, line):
+        # Edit an expense by index
         parser = argparse.ArgumentParser(prog="edit")
         parser.add_argument("index", type=int)
         parser.add_argument("--amount", type=float)
@@ -223,6 +233,7 @@ class Expenditure(cmd.Cmd):
             pass
 
     def edit_expense(self, index, amount=None, category=None, date=None):
+        # Helper to update expense fields
         if index < 1 or index > len(self.expenses):
             print(f"❌ Invalid expense ID: {index}")
             return
@@ -245,6 +256,7 @@ class Expenditure(cmd.Cmd):
         print("--------------------------------------------------------")
 
     def do_delete(self, line):
+        # Delete an expense by index
         parser = argparse.ArgumentParser(prog="delete")
         parser.add_argument("index", type=int)
         try:
@@ -254,6 +266,7 @@ class Expenditure(cmd.Cmd):
             pass
 
     def delete_expense(self, index):
+        # Helper to remove expense
         if index < 1 or index > len(self.expenses):
             print(f"❌ Invalid expense ID: {index}")
             return
@@ -265,6 +278,7 @@ class Expenditure(cmd.Cmd):
         print("--------------------------------------------------------")
 
     def do_plot(self, line):
+        # Plot expenses per category
         parser = argparse.ArgumentParser(prog="plot")
         parser.add_argument("--day")
         parser.add_argument("--week", type=int)
@@ -277,6 +291,7 @@ class Expenditure(cmd.Cmd):
             pass
 
     def plot_expenses(self, day=None, week=None, month=None, year=None):
+        # Helper to plot expenses using matplotlib
         filtered = self.expenses[:]
         for e in filtered:
             e["datetime_object"] = datetime.strptime(e["date"], "%Y-%m-%d %H:%M")
@@ -309,6 +324,7 @@ class Expenditure(cmd.Cmd):
             del e["datetime_object"]
 
     def do_export(self, line):
+        # Export expenses to various formats
         parser = argparse.ArgumentParser(prog="export")
         parser.add_argument("--format", choices=["json", "csv", "xlsx", "pdf", "png"], required=True)
         parser.add_argument("--filename", default="Expenses Report")
@@ -329,6 +345,7 @@ class Expenditure(cmd.Cmd):
             pass
 
     def exportFile(self, fmt, filename, filters):
+        # Helper to export filtered expenses to file
         title = "Expenses Report"
         records = []
         for e in self.expenses:
@@ -403,6 +420,7 @@ class Expenditure(cmd.Cmd):
             print(f"❌ Unsupported format: {fmt}")
 
     def do_help(self, line):
+        # Show help for commands
         commands = {
             "add": "Add a new expense. Example: add --amount 100 --category Food [--date YYYY-MM-DD HH:MM]",
             "list": "List expenses with optional filters. Example: list --day 2025-09-16",
@@ -426,8 +444,10 @@ class Expenditure(cmd.Cmd):
             print("\nType 'help <command>' to see details for a specific command.\n")
 
     def do_exit(self, line):
+        # Exit the CLI
         print("Exited program!")
         return True
 
 if __name__ == "__main__":
+    # Start the CLI loop
     Expenditure().cmdloop()
