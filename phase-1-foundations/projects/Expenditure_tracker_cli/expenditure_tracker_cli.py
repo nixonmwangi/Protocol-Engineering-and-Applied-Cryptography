@@ -40,7 +40,7 @@ class Expenditure(cmd.Cmd):
         + " " * 25 + "-------------------------------------------------------------\n"
         + "\n"
     )
-    prompt = f"{Fore.RED}exp {Fore.RED}->{Style.RESET_ALL} "
+    prompt = f"{Fore.RED}exp{Style.RESET_ALL} {Fore.RED}->{Style.RESET_ALL} "
 
     def __init__(self):
         super().__init__()
@@ -140,6 +140,7 @@ class Expenditure(cmd.Cmd):
 
     def do_list(self, line):
         # List expenses with optional filters
+        
         parser = argparse.ArgumentParser(prog="list")
         parser.add_argument("--day")
         parser.add_argument("--week", type=int)
@@ -155,12 +156,17 @@ class Expenditure(cmd.Cmd):
     def list_expense(self, day=None, week=None, month=None, year=None, category=None):
         # Helper to filter and print expenses
         records = []
-        for e in self.expenses:
-            try:
-                dt = datetime.strptime(e["date"], "%Y-%m-%d %H:%M")
-                records.append((e, dt))
-            except ValueError:
-                continue
+        for  e in self.expenses:
+            dt = None
+            if e.get("date") and str(e["date"]).lower() not in ["none", "nat", "nan", ""]:
+                try:
+                    dt = datetime.strptime(str(e["date"]), "%Y-%m-%d %H:%M")
+                except ValueError:
+                    try:
+                        dt = datetime.strptime(str(e["date"]), "%Y-%m-%d")
+                    except ValueError:
+                       pass
+            records.append((e, dt))
         if day:
             day_obj = datetime.strptime(day, "%Y-%m-%d").date()
             records = [(e, dt) for (e, dt) in records if dt.date() == day_obj]
@@ -182,7 +188,9 @@ class Expenditure(cmd.Cmd):
         print(f"{'Id':<4} {'Date':<12} {'Time':<6}  {'Category':<15} {'Amount':>8}")
         print("---- ------------ ------ ------------       --------")
         for i, (exp, dt) in enumerate(records, start=1):
-            print(f"{i:<4} {dt:%Y-%m-%d}   {dt:%H:%M}   {exp['category']:<15} {exp['amount']:>8.2f}")
+            date_str = dt.strftime("%Y-%m-%d") if dt else "N/A"
+            time_str = dt.strftime("%H:%M") if dt else "--:--"
+            print(f"{i:<4} {date_str:<12} {time_str:<6}   {exp['category']:<15} {exp['amount']:>8.2f}")
         print("----------------------------------------------------")
 
     def do_summary(self, line):
@@ -274,6 +282,7 @@ class Expenditure(cmd.Cmd):
 
     def do_delete(self, line):
         # Delete an expense by index
+        
         parser = argparse.ArgumentParser(prog="delete", description="Delete one or more expenses by ID. Usage: delete <id1> <id2> ...")
         parser.add_argument("indexes", nargs="*", type=int, help="Expense ID(s) to delete")
         try:
