@@ -5,7 +5,6 @@ import json
 import os
 from datetime import datetime, timedelta
 from colorama import init, Fore, Style
-init(autoreset=True)
 import csv
 from openpyxl import Workbook
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
@@ -14,6 +13,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 import matplotlib.pyplot as plt
 import pandas as pd  # For XLSX support
 
+init(autoreset=True)
 DATA_FILE = "expenditure.json"
 
 class Expenditure(cmd.Cmd):
@@ -35,7 +35,7 @@ class Expenditure(cmd.Cmd):
         + " " * 35 + "-> plot     : Plot expense graph\n"
         + " " * 35 + "-> summary  : View expense totals\n"
         + " " * 35 + "-> help     : Show all commands\n"
-        + " " * 35 + "-> delete   : Delete expense by Id\n"
+        + " " * 35 + "-> delete   : Delete expense by Id(multiple)\n"
         + " " * 35 + "-> exit     : Exit program\n"
         + " " * 25 + "-------------------------------------------------------------\n"
         + "\n"
@@ -274,11 +274,17 @@ class Expenditure(cmd.Cmd):
 
     def do_delete(self, line):
         # Delete an expense by index
-        parser = argparse.ArgumentParser(prog="delete")
-        parser.add_argument("index", type=int)
+        parser = argparse.ArgumentParser(prog="delete", description="Delete one or more expenses by ID. Usage: delete <id1> <id2> ...")
+        parser.add_argument("indexes", nargs="*", type=int, help="Expense ID(s) to delete")
         try:
             args = parser.parse_args(shlex.split(line))
-            self.delete_expense(args.index)
+            
+            if not args.indexes:
+               parser.print_help()
+               return
+         
+            for index in sorted(args.indexes, reverse=True):
+                self.delete_expense(index)
         except SystemExit:
             pass
 
@@ -444,11 +450,12 @@ class Expenditure(cmd.Cmd):
             "summary": "Show summary of expenses. Example: summary --month 9 --year 2025",
             "plot": "Plot expenses per category. Example: plot --week 37",
             "edit": "Edit an expense by index. Example: edit 2 --amount 200",
-            "delete": "Delete an expense by index. Example: delete 3",
+            "delete": "Delete an expense by index. Example: delete 3 4 5",
             "load": "Load expenses from a file. Example: load expenditure.json",
             "export": "Export expenses to a file. Example: export --format csv --filename my_report",
             "exit": "Exit the shell. Example: exit",
             "help": "Show this help menu. Example: help",
+            "clear": "Clear the terminal screen.",
         }
         if line:
             cmd_help = commands.get(line, None)
@@ -466,6 +473,13 @@ class Expenditure(cmd.Cmd):
         # Exit the CLI
         print("Exited program!")
         return True
+    def do_clear(self, line):
+        """
+        Clear the terminal screen.
+        Usage: clear
+        """
+        os.system("cls" if os.name == "nt" else "clear")
+
 
 if __name__ == "__main__":
     # Start the CLI loop
