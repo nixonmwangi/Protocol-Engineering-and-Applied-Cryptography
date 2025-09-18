@@ -40,7 +40,7 @@ class Expenditure(cmd.Cmd):
         + " " * 25 + "-------------------------------------------------------------\n"
         + "\n"
     )
-    prompt = Fore.RED + "exp -> " + Style.RESET_ALL
+    prompt = f"{Fore.RED}exp {Fore.RED}->{Style.RESET_ALL} "
 
     def __init__(self):
         super().__init__()
@@ -60,19 +60,35 @@ class Expenditure(cmd.Cmd):
             if ext == ".json":
                 with open(file_path, "r") as f:
                     data = json.load(f)
+                data = [
+                    {
+                        "amount": float(row.get("amount", 0)),
+                        "category": row.get("category", "Unknown"),
+                        "date": row.get("date", datetime.today().strftime("%Y-%m-%d %H:%M"))
+                    }
+                    for row in data
+                ]
             elif ext == ".csv":
                 with open(file_path, "r") as f:
                     reader = csv.DictReader(f)
                     data = [
-                        {"amount": float(row["amount"]), "category": row["category"], "date": row["date"]}
-                        for row in reader
-                    ]
-            elif ext == ".xlsx":
-                df = pd.read_excel(file_path)
-                data = [
-                    {"amount": float(row["Amount"]), "category": row["Category"], "date": row["Date"]}
-                    for _, row in df.iterrows()
+                    {
+                        "amount": float(row.get("amount", 0)),
+                        "category": row.get("category", "Unknown"),
+                        "date": row.get("date", datetime.today().strftime("%Y-%m-%d %H:%M"))
+                    }
+                    for row in reader
                 ]
+            elif ext == ".xlsx":
+                df = pd.read_excel(file_path, engine="openpyxl")
+                data = [
+                {
+                    "amount": float(row.get("Amount", 0)),
+                    "category": row.get("Category", "Unknown"),
+                    "date": str(row.get("Date", datetime.today().strftime("%Y-%m-%d %H:%M"))).split(".")[0]
+                }
+                for _, row in df.iterrows()
+            ]
             else:
                 print(f"❌ Unsupported file type: {ext}")
                 return []
