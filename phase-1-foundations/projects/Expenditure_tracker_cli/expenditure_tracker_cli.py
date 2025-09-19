@@ -230,7 +230,7 @@ class Expenditure(cmd.Cmd):
         if not records:
             print("❌ No expenses found under that filter.")
             return
-        total = sum(e["amount"] for e, dt in records)
+        total = sum(e["amount"] for e in self.expenses)
         categories = {}
         for e, dt in records:
             categories[e["category"]] = categories.get(e["category"], 0) + e["amount"]
@@ -285,15 +285,27 @@ class Expenditure(cmd.Cmd):
         
         parser = argparse.ArgumentParser(prog="delete", description="Delete one or more expenses by ID. Usage: delete <id1> <id2> ...")
         parser.add_argument("indexes", nargs="*", type=int, help="Expense ID(s) to delete")
+        parser.add_argument("-all", action="store_true", help="Delete all expenses")
         try:
             args = parser.parse_args(shlex.split(line))
+            
+            if args.all:
+                confirm = input("⚠️ Are you sure you want to delete ALL expenses? (y/n): ").strip().lower()
+                if confirm == "y":
+                   self.expenses = []
+                   self.save_expenses()
+                   print("✅ All expenses deleted.")
+                else:
+                   print("❌ Delete all cancelled.")
+                return 
             
             if not args.indexes:
                parser.print_help()
                return
-         
+                  
             for index in sorted(args.indexes, reverse=True):
                 self.delete_expense(index)
+                    
         except SystemExit:
             pass
 
