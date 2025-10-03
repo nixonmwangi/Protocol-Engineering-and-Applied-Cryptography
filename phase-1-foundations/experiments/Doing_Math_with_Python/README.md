@@ -15,7 +15,7 @@ Requirements:
 
 3. Install the required packages
 
-   pip install numpy matplotlib
+   pip install numpy matplotlib sympy
    
 4. Deactivating the environment
 
