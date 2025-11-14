@@ -290,6 +290,10 @@ class Expenditure(cmd.Cmd):
             args = parser.parse_args(shlex.split(line))
             
             if args.all:
+                if not self.expenses:
+                    print("❌ No expenses to delete.")
+                    return
+                    
                 confirm = input("⚠️ Are you sure you want to delete ALL expenses? (y/n): ").strip().lower()
                 if confirm == "y":
                    self.expenses = []
